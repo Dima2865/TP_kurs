@@ -1,0 +1,359 @@
+- model: students_scores.student
+  fields:
+    name: Иванов Андрей
+    discipline: Технологии программирования
+    score: 85
+- model: students_scores.student
+  fields:
+    name: Иванов Андрей
+    discipline: Базы данных
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Иванов Андрей
+    discipline: Системная инженерия
+    score: 93
+- model: students_scores.student
+  fields:
+    name: Иванов Андрей
+    discipline: Компьютерная лингвистика
+    score: 79
+- model: students_scores.student
+  fields:
+    name: Иванов Андрей
+    discipline: Методы оптимизации
+    score: 76
+- model: students_scores.student
+  fields:
+    name: Иванов Андрей
+    discipline: Управление проектами
+    score: 97
+- model: students_scores.student
+  fields:
+    name: Иванов Андрей
+    discipline: Киберправо
+    score: 87
+
+- model: students_scores.student
+  fields:
+    name: Бочкин Иван
+    discipline: Технологии программирования
+    score: 67
+- model: students_scores.student
+  fields:
+    name: Бочкин Иван
+    discipline: Базы данных
+    score: 77
+- model: students_scores.student
+  fields:
+    name: Бочкин Иван
+    discipline: Системная инженерия
+    score: 83
+- model: students_scores.student
+  fields:
+    name: Бочкин Иван
+    discipline: Компьютерная лингвистика
+    score: 81
+- model: students_scores.student
+  fields:
+    name: Бочкин Иван
+    discipline: Методы оптимизации
+    score: 61
+- model: students_scores.student
+  fields:
+    name: Бочкин Иван
+    discipline: Управление проектами
+    score: 88
+- model: students_scores.student
+  fields:
+    name: Бочкин Иван
+    discipline: Киберправо
+    score: 94
+
+- model: students_scores.student
+  fields:
+    name: Сидоров Сергей
+    discipline: Технологии программирования
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Сидоров Сергей
+    discipline: Базы данных
+    score: 96
+- model: students_scores.student
+  fields:
+    name: Сидоров Сергей
+    discipline: Системная инженерия
+    score: 95
+- model: students_scores.student
+  fields:
+    name: Сидоров Сергей
+    discipline: Компьютерная лингвистика
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Сидоров Сергей
+    discipline: Методы оптимизации
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Сидоров Сергей
+    discipline: Управление проектами
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Сидоров Сергей
+    discipline: Киберправо
+    score: 100
+
+- model: students_scores.student
+  fields:
+    name: Петров Иван
+    discipline: Технологии программирования
+    score: 97
+- model: students_scores.student
+  fields:
+    name: Петров Иван
+    discipline: Базы данных
+    score: 92
+- model: students_scores.student
+  fields:
+    name: Петров Иван
+    discipline: Системная инженерия
+    score: 96
+- model: students_scores.student
+  fields:
+    name: Петров Иван
+    discipline: Компьютерная лингвистика
+    score: 88
+- model: students_scores.student
+  fields:
+    name: Петров Иван
+    discipline: Методы оптимизации
+    score: 89
+- model: students_scores.student
+  fields:
+    name: Петров Иван
+    discipline: Управление проектами
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Петров Иван
+    discipline: Киберправо
+    score: 100
+
+- model: students_scores.student
+  fields:
+    name: Иванова Анна
+    discipline: Технологии программирования
+    score: 98
+- model: students_scores.student
+  fields:
+    name: Иванова Анна
+    discipline: Базы данных
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Иванова Анна
+    discipline: Системная инженерия
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Иванова Анна
+    discipline: Компьютерная лингвистика
+    score: 85
+- model: students_scores.student
+  fields:
+    name: Иванова Анна
+    discipline: Методы оптимизации
+    score: 80
+- model: students_scores.student
+  fields:
+    name: Иванова Анна
+    discipline: Управление проектами
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Иванова Анна
+    discipline: Киберправо
+    score: 94
+
+- model: students_scores.student
+  fields:
+    name: Полякова Алина
+    discipline: Технологии программирования
+    score: 97
+- model: students_scores.student
+  fields:
+    name: Полякова Алина
+    discipline: Базы данных
+    score: 79
+- model: students_scores.student
+  fields:
+    name: Полякова Алина
+    discipline: Системная инженерия
+    score: 81
+- model: students_scores.student
+  fields:
+    name: Полякова Алина
+    discipline: Компьютерная лингвистика
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Полякова Алина
+    discipline: Методы оптимизации
+    score: 85
+- model: students_scores.student
+  fields:
+    name: Полякова Алина
+    discipline: Управление проектами
+    score: 91
+- model: students_scores.student
+  fields:
+    name: Полякова Алина
+    discipline: Киберправо
+    score: 100
+
+- model: students_scores.student
+  fields:
+    name: Золотарев Евгений
+    discipline: Технологии программирования
+    score: 90
+- model: students_scores.student
+  fields:
+    name: Золотарев Евгений
+    discipline: Базы данных
+    score: 94
+- model: students_scores.student
+  fields:
+    name: Золотарев Евгений
+    discipline: Системная инженерия
+    score: 92
+- model: students_scores.student
+  fields:
+    name: Золотарев Евгений
+    discipline: Компьютерная лингвистика
+    score: 88
+- model: students_scores.student
+  fields:
+    name: Золотарев Евгений
+    discipline: Методы оптимизации
+    score: 76
+- model: students_scores.student
+  fields:
+    name: Золотарев Евгений
+    discipline: Управление проектами
+    score: 77
+- model: students_scores.student
+  fields:
+    name: Золотарев Евгений
+    discipline: Киберправо
+    score: 84
+
+- model: students_scores.student
+  fields:
+    name: Попов Дмитрий
+    discipline: Технологии программирования
+    score: 50
+- model: students_scores.student
+  fields:
+    name: Попов Дмитрий
+    discipline: Базы данных
+    score: 80
+- model: students_scores.student
+  fields:
+    name: Попов Дмитрий
+    discipline: Системная инженерия
+    score: 80
+- model: students_scores.student
+  fields:
+    name: Попов Дмитрий
+    discipline: Компьютерная лингвистика
+    score: 76
+- model: students_scores.student
+  fields:
+    name: Попов Дмитрий
+    discipline: Методы оптимизации
+    score: 67
+- model: students_scores.student
+  fields:
+    name: Попов Дмитрий
+    discipline: Управление проектами
+    score: 86
+- model: students_scores.student
+  fields:
+    name: Попов Дмитрий
+    discipline: Киберправо
+    score: 76
+
+- model: students_scores.student
+  fields:
+    name: Сусарев Сергей
+    discipline: Технологии программирования
+    score: 79
+- model: students_scores.student
+  fields:
+    name: Сусарев Сергей
+    discipline: Базы данных
+    score: 97
+- model: students_scores.student
+  fields:
+    name: Сусарев Сергей
+    discipline: Системная инженерия
+    score: 84
+- model: students_scores.student
+  fields:
+    name: Сусарев Сергей
+    discipline: Компьютерная лингвистика
+    score: 82
+- model: students_scores.student
+  fields:
+    name: Сусарев Сергей
+    discipline: Методы оптимизации
+    score: 40
+- model: students_scores.student
+  fields:
+    name: Сусарев Сергей
+    discipline: Управление проектами
+    score: 91
+- model: students_scores.student
+  fields:
+    name: Сусарев Сергей
+    discipline: Киберправо
+    score: 88
+
+- model: students_scores.student
+  fields:
+    name: Громова Анастасия
+    discipline: Технологии программирования
+    score: 99
+- model: students_scores.student
+  fields:
+    name: Громова Анастасия
+    discipline: Базы данных
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Громова Анастасия
+    discipline: Системная инженерия
+    score: 100
+- model: students_scores.student
+  fields:
+    name: Громова Анастасия
+    discipline: Компьютерная лингвистика
+    score: 97
+- model: students_scores.student
+  fields:
+    name: Громова Анастасия
+    discipline: Методы оптимизации
+    score: 78
+- model: students_scores.student
+  fields:
+    name: Громова Анастасия
+    discipline: Управление проектами
+    score: 89
+- model: students_scores.student
+  fields:
+    name: Громова Анастасия
+    discipline: Киберправо
+    score: 100

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width">
+    <title>Информация о студенте</title>
+</head>
+<body>
+    <div>
+        <h2>Информация о студенте</h2>
+        <h3><a href="{% url 'index' %}">Вернуться на главную</a></h3>
+        <h3><a href="{% url 'get_info' %}">Вернуться назад</a></h3>
+        <h3>Статистика студента: {{student_name}}</h3>
+        <table style="border-collapse: collapse;">
+            <tr>
+                <td style="border: 1px solid black;"><p>Количество дисциплин</p></td>
+                <td style="border: 1px solid black;"><p>Максимальный балл</p></td>
+                <td style="border: 1px solid black;"><p>Минимальный балл</p></td>
+                <td style="border: 1px solid black;"><p>Средний балл</p></td>
+                <td style="border: 1px solid black;"><p>Стандартное отклонение баллов</p></td>
+                <td style="border: 1px solid black;"><p>Дисперсия баллов</p></td>
+            </tr>
+            <tr>
+            {% for value in stud_stats %}
+                <td style="border: 1px solid black;"><p>{{ value }}</p></td>
+            {% endfor %}
+            </tr>
+        </table>
+        <h3>Список оценок по дисциплинам студента: {{student_name}}</h3>
+        <table style="border-collapse: collapse;">
+            <tr>
+                <td style="border: 1px solid black;"><p>Дисциплина</p></td>
+                <td style="border: 1px solid black;"><p>Балл</p></td>
+            </tr>
+            {% for student in student_info %}
+                <tr>
+                    <td style="border: 1px solid black;"><p>{{ student.discipline }}</p></td>
+                    <td style="border: 1px solid black;"><p>{{ student.score }}</p></td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

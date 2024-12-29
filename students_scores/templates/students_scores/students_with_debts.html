@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width">
+    <title>Студенты с академическими долгами</title>
+</head>
+<body>
+    <h2>Список студентов с академическими долгами</h2>
+    <ol>
+        {% for student in students %}
+            <li>{{ student.name }} ({{ student.discipline }}) - {{ student.score }}</li>
+        {% endfor %}
+    </ol>
+
+    <h3><a href="{% url 'get_info' %}">Вернуться назад</a></h3>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width">
+    <title>Получение информации о студенте\дисциплине</title>
+</head>
+<body>
+    <div>
+        <h2>Получение информации о студенте\дисциплине</h2>
+        <h3><a href="{% url 'index' %}">Вернуться на главную</a></h3>
+        <form method="POST" action="{% url 'student_info' %}">{% csrf_token %}
+            <table>
+                <tr>
+                    <td>
+                        <p>Введите ФИО студента: </p>
+                    </td>
+                    <td>
+                        <input type="text" name="student"/>
+                    </td>
+                    <td>
+                        <button type="submit">Перейти</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <form method="POST" action="{% url 'discipline_info' %}">{% csrf_token %}
+            <table>
+                <tr>
+                    <td>
+                        <p>Введите название дисциплины: </p>
+                    </td>
+                    <td>
+                        <input type="text" name="discipline"/>
+                    </td>
+                    <td>
+                        <button type="submit">Перейти</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+        <h3><a href="{% url 'students_with_debts' %}">Вывести список студентов с академическими долгами</a></h3>
+    </div>
+</body>
+</html>
