@@ -6,11 +6,25 @@
 </head>
 <body>
     <h2>Список студентов с академическими долгами</h2>
-    <ol>
-        {% for student in students %}
-            <li>{{ student.name }} ({{ student.discipline }}) - {{ student.score }}</li>
-        {% endfor %}
-    </ol>
+<!--    <ol>-->
+<!--        {% for student in students %}-->
+<!--            <li>{{ student.name }} ({{ student.discipline }}) - {{ student.score }}</li>-->
+<!--        {% endfor %}-->
+<!--    </ol>-->
+        <table style="border-collapse: collapse;">
+            <tr>
+                <td style="border: 1px solid black;"><p>ФИО студента-должника</p></td>
+                <td style="border: 1px solid black;"><p>Дисциплина</p></td>
+                <td style="border: 1px solid black;"><p>Балл</p></td>
+            </tr>
+            {% for student in students_with_debts %}
+                <tr>
+                    <td style="border: 1px solid black;"><p>{{ student.name }}</p></td>
+                    <td style="border: 1px solid black;"><p>{{ student.discipline }}</p></td>
+                    <td style="border: 1px solid black;"><p>{{ student.score }}</p></td>
+                </tr>
+            {% endfor %}
+        </table>
 
     <h3><a href="{% url 'get_info' %}">Вернуться назад</a></h3>
 </body>

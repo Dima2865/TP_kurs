@@ -1,5 +1,5 @@
 """
-ASGI config for tplab2 project.
+ASGI config for tp_kurs project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tplab2.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tp_kurs.settings')
 
 application = get_asgi_application()

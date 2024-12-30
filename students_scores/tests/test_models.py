@@ -1,38 +1,67 @@
 from django.test import TestCase
-from students_scores.models import Product, Purchase
-from datetime import datetime
-
-class ProductTestCase(TestCase):
-    def setUp(self):
-        Product.objects.create(name="book", price="740")
-        Product.objects.create(name="pencil", price="50")
-
-    def test_correctness_types(self):                   
-        self.assertIsInstance(Product.objects.get(name="book").name, str)
-        self.assertIsInstance(Product.objects.get(name="book").price, int)
-        self.assertIsInstance(Product.objects.get(name="pencil").name, str)
-        self.assertIsInstance(Product.objects.get(name="pencil").price, int)        
-
-    def test_correctness_data(self):
-        self.assertTrue(Product.objects.get(name="book").price == 740)
-        self.assertTrue(Product.objects.get(name="pencil").price == 50)
+from students_scores.models import Student, StudentWithDebts
+from django.db import IntegrityError
+from unittest.mock import patch, MagicMock
 
 
-class PurchaseTestCase(TestCase):
-    def setUp(self):
-        self.product_book = Product.objects.create(name="book", price="740")
-        self.datetime = datetime.now()
-        Purchase.objects.create(product=self.product_book,
-                                person="Ivanov",
-                                address="Svetlaya St.")
+class StudentModelTest(TestCase):
+    # Проверка на корректность создания новой записи
+    def test_create_student(self):
+        student = Student.objects.create(
+            name="Бочкин Иван",
+            discipline="Высшая математика",
+            score=95
+        )
+        self.assertEqual(student.name, "Бочкин Иван")
+        self.assertEqual(student.discipline, "Высшая математика")
+        self.assertEqual(student.score, 95)
 
-    def test_correctness_types(self):
-        self.assertIsInstance(Purchase.objects.get(product=self.product_book).person, str)
-        self.assertIsInstance(Purchase.objects.get(product=self.product_book).address, str)
-        self.assertIsInstance(Purchase.objects.get(product=self.product_book).date, datetime)
+    # Проверяет то, что метод save был вызван с использованием unittest.mock.patch
+    @patch('django.db.models.Model.save', MagicMock(name='save'))
+    def test_save_method_called(self):
+        student = Student(
+            name="Бочкин Иван",
+            discipline="Высшая математика",
+            score=95
+        )
+        student.save()
+        self.assertTrue(student.save.called)
 
-    def test_correctness_data(self):
-        self.assertTrue(Purchase.objects.get(product=self.product_book).person == "Ivanov")
-        self.assertTrue(Purchase.objects.get(product=self.product_book).address == "Svetlaya St.")
-        self.assertTrue(Purchase.objects.get(product=self.product_book).date.replace(microsecond=0) == \
-            self.datetime.replace(microsecond=0))
+
+class StudentWithDebtsModelTest(TestCase):
+    # Проверка на корректность создания новой записи
+    def test_create_student_with_debts(self):
+        student_with_debts = StudentWithDebts.objects.create(
+            name="Сидоров Сергей",
+            discipline="Физика",
+            score=50
+        )
+        self.assertEqual(student_with_debts.name, "Сидоров Сергей")
+        self.assertEqual(student_with_debts.discipline, "Физика")
+        self.assertEqual(student_with_debts.score, 50)
+
+    # Проверка на то, что ограничение unique_together работает правильно и выдает IntegrityError,
+    # если попытаться создать объект с повторяющимися значениями полей name и discipline.
+    def test_unique_together_constraint(self):
+        StudentWithDebts.objects.create(
+            name="Сидоров Сергей",
+            discipline="Физика",
+            score=50
+        )
+        with self.assertRaises(IntegrityError):
+            StudentWithDebts.objects.create(
+                name="Сидоров Сергей",
+                discipline="Физика",
+                score=45
+            )
+
+    # Проверяет то, что метод save был вызван с использованием unittest.mock.patch
+    @patch('django.db.models.Model.save', MagicMock(name='save'))
+    def test_save_method_called(self):
+        student_with_debts = StudentWithDebts(
+            name="Сидоров Сергей",
+            discipline="Физика",
+            score=50
+        )
+        student_with_debts.save()
+        self.assertTrue(student_with_debts.save.called)

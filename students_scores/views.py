@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse
 import numpy as np
-from .models import Student
+from .models import Student, StudentWithDebts
 from typing import List
 from abc import ABC, abstractmethod
 
@@ -46,50 +46,6 @@ class DisciplineStats:
         return self.stats_calculator.calculate_stats(scores)
 
 # Паттерн Strategy (end)
-
-
-# class StudentStats:
-#     def __init__(self, name):
-#         self.name = name
-#
-#     def calculate_student_stats(self):
-#         # Извлекаем оценки из QuerySet
-#         student_info = Student.objects.filter(name=self.name).values()
-#         scores = [entry['score'] for entry in student_info]
-#
-#         stud_count = len(scores)
-#         # Вычисляем максимальную, минимальную и среднюю оценку по дисциплинам
-#         max_score = np.max(scores)
-#         min_score = np.min(scores)
-#         avg_score = np.mean(scores)
-#         # Вычисляем стандартное отклонение баллов
-#         std_dev = np.std(scores)
-#         # Вычисляем дисперсию баллов
-#         variance = np.var(scores)
-#
-#         return [stud_count, max_score, min_score, avg_score, std_dev, variance]
-#
-#
-# class DisciplineStats:
-#     def __init__(self, discipline_name):
-#         self.discipline_name = discipline_name
-#
-#     def calculate_discipline_stats(self):
-#         # Извлекаем оценки из QuerySet
-#         discipline_info = Student.objects.filter(discipline=self.discipline_name).values()
-#         scores = [entry['score'] for entry in discipline_info]
-#
-#         disc_count = len(scores)
-#         # Вычисляем максимальную, минимальную и среднюю оценку студентов по данной дисциплине
-#         max_score = np.max(scores)
-#         min_score = np.min(scores)
-#         avg_score = np.mean(scores)
-#         # Вычисляем стандартное отклонение баллов
-#         std_dev = np.std(scores)
-#         # Вычисляем дисперсию баллов
-#         variance = np.var(scores)
-#
-#         return [disc_count, max_score, min_score, avg_score, std_dev, variance]
 
 
 # Паттерн Factory Method (start)
@@ -169,56 +125,6 @@ def discipline_info_page(request):
 # Паттерн Factory Method (end)
 
 
-# def student_info_page(request):
-#     # Получаем имя студента из поля ввода
-#     if request.method == 'POST':
-#         student_name = str(request.POST.get("student"))
-#     else:
-#         student_name = "not a POST request"
-#
-#     # Проверка на то, существует ли такой студент в БД
-#     if Student.objects.filter(name=student_name).exists():
-#         # Получаем список дисциплин и оценок студента
-#         student_info = Student.objects.filter(name=student_name)
-#
-#         # Вычисляем статистику студента по дисциплинам
-#         stats_calculator = StatsCalculator()
-#         student = StudentStats(student_name, stats_calculator=stats_calculator)
-#         stud_stats = student.calculate_student_stats()
-#
-#         context = {'student_info': student_info, 'student_name': student_name, 'stud_stats': stud_stats}
-#         return render(request, 'students_scores/student_form.html', context)
-#     else:
-#         link = reverse('get_info')
-#         return HttpResponse(f'<h3>{student_name} - такого студента нет!</h3>'
-#                             f'<br><a href="{link}">Вернуться назад</a>')
-#
-#
-# def discipline_info_page(request):
-#     # Получаем название дисциплины
-#     if request.method == 'POST':
-#         discipline_name = str(request.POST.get("discipline"))
-#     else:
-#         discipline_name = "not a POST request"
-#
-#     # Проверка на то, что такая дисциплина существует
-#     if Student.objects.filter(discipline=discipline_name).exists():
-#         # Получаем список студентов и их даллов по этой дисциплине
-#         discipline_info = Student.objects.filter(discipline=discipline_name)
-#
-#         # Вычисляем статистику по дисциплине
-#         stats_calculator = StatsCalculator()
-#         discipline = DisciplineStats(discipline_name, stats_calculator=stats_calculator)
-#         disc_stats = discipline.calculate_discipline_stats()
-#
-#         context = {'discipline_info': discipline_info, 'discipline_name': discipline_name, 'disc_stats': disc_stats}
-#         return render(request, 'students_scores/discipline_form.html', context)
-#     else:
-#         link = reverse('get_info')
-#         return HttpResponse(f'<h3>{discipline_name} - такой дисциплины нет!</h3>'
-#                             f'<br><a href="{link}">Вернуться назад</a>')
-
-
 def index(request):
     students = Student.objects.all()
     context = {'students': students}
@@ -229,6 +135,21 @@ def get_info_page(request):
     return render(request, 'students_scores/get_info.html')
 
 
+def update_students_with_debts():
+    # Получаем студентов с оценкой ниже 61
+    students_with_debts = Student.objects.filter(score__lt=61)
+
+    for student in students_with_debts:
+        # Проверяем, есть ли уже такой студент в модели StudentWithDebts
+        if not StudentWithDebts.objects.filter(name=student.name, discipline=student.discipline).exists():
+            # Если студента нет, добавляем его
+            StudentWithDebts.objects.create(
+                name=student.name,
+                discipline=student.discipline,
+                score=student.score
+            )
+
+
 def get_students_with_academic_debts():
     # Получаем студентов с оценкой ниже 61
     students_with_debts = Student.objects.filter(score__lt=61)
@@ -236,5 +157,10 @@ def get_students_with_academic_debts():
 
 
 def list_students_with_debts(request):
-    students = get_students_with_academic_debts()
-    return render(request, 'students_scores/students_with_debts.html', {'students': students})
+    # Обновляем список студентов с долгами
+    update_students_with_debts()
+
+    students_with_debts = get_students_with_academic_debts()
+
+    return render(request, 'students_scores/students_with_debts.html',
+                  {'students_with_debts': students_with_debts})
