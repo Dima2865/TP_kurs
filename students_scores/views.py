@@ -1,13 +1,22 @@
+import numpy as np
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse
-import numpy as np
-from .models import Student, StudentWithDebts
+from django.db.models import QuerySet
 from typing import List
 from abc import ABC, abstractmethod
+from .models import Student, StudentWithDebts
 
 
-# Паттерн Strategy (start)
+# Паттерн Adapter (start)
+class DataAdapter:
+    def __init__(self, queryset: QuerySet):
+        self.queryset = queryset
+
+    def get_scores(self) -> List[int]:
+        return [entry['score'] for entry in self.queryset.values('score')]
+
+
 class StatsCalculator:
     def calculate_stats(self, scores: List[int]) -> List[float]:
         stud_count = len(scores)
@@ -28,9 +37,9 @@ class StudentStats:
         self.stats_calculator = stats_calculator
 
     def calculate_student_stats(self) -> List[float]:
-        # Извлекаем оценки из QuerySet
-        student_info = Student.objects.filter(name=self.name).values()
-        scores = [entry['score'] for entry in student_info]
+        queryset = Student.objects.filter(name=self.name)
+        data_adapter = DataAdapter(queryset)
+        scores = data_adapter.get_scores()
         return self.stats_calculator.calculate_stats(scores)
 
 
@@ -40,12 +49,50 @@ class DisciplineStats:
         self.stats_calculator = stats_calculator
 
     def calculate_discipline_stats(self) -> List[float]:
-        # Извлекаем оценки из QuerySet
-        discipline_info = Student.objects.filter(discipline=self.discipline_name).values()
-        scores = [entry['score'] for entry in discipline_info]
+        queryset = Student.objects.filter(discipline=self.discipline_name)
+        data_adapter = DataAdapter(queryset)
+        scores = data_adapter.get_scores()
         return self.stats_calculator.calculate_stats(scores)
 
-# Паттерн Strategy (end)
+# Паттерн Adapter (end)
+
+
+# class StatsCalculator:
+#     def calculate_stats(self, scores: List[int]) -> List[float]:
+#         stud_count = len(scores)
+#         # Вычисляем максимальную, минимальную и среднюю оценку по дисциплинам
+#         max_score = np.max(scores)
+#         min_score = np.min(scores)
+#         avg_score = np.mean(scores)
+#         # Вычисляем стандартное отклонение баллов
+#         std_dev = np.std(scores)
+#         # Вычисляем дисперсию баллов
+#         variance = np.var(scores)
+#         return [stud_count, max_score, min_score, avg_score, std_dev, variance]
+#
+#
+# class StudentStats:
+#     def __init__(self, name: str, stats_calculator: StatsCalculator):
+#         self.name = name
+#         self.stats_calculator = stats_calculator
+#
+#     def calculate_student_stats(self) -> List[float]:
+#         # Извлекаем оценки из QuerySet
+#         student_info = Student.objects.filter(name=self.name).values()
+#         scores = [entry['score'] for entry in student_info]
+#         return self.stats_calculator.calculate_stats(scores)
+#
+#
+# class DisciplineStats:
+#     def __init__(self, discipline_name: str, stats_calculator: StatsCalculator):
+#         self.discipline_name = discipline_name
+#         self.stats_calculator = stats_calculator
+#
+#     def calculate_discipline_stats(self) -> List[float]:
+#         # Извлекаем оценки из QuerySet
+#         discipline_info = Student.objects.filter(discipline=self.discipline_name).values()
+#         scores = [entry['score'] for entry in discipline_info]
+#         return self.stats_calculator.calculate_stats(scores)
 
 
 # Паттерн Factory Method (start)
